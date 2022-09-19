@@ -22,30 +22,68 @@ display_matrix = [  ["100%","░","░","░","░","░","░","░","░","░
                     ["  5%","░","░","░","░","░","░","░","░","░","░","░","░","░","░","░","░","░","░","░","░","░","░","░","░","░","░"],
                     ["  0%","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"],  ]
 
-block_1 = "░"
-block_2 = "█"
 
-valid_letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 vystup = {}
 
+def count(user_input: str):
+    valid_letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-vstup = input("input text: ")
-vstup = udc(vstup).upper()
+    vstup = udc(user_input).upper()
 
+    for letter in valid_letters:
+        vystup.update([[letter, [0, 0]]])
 
-for letter in valid_letters:
-    vystup.update([[letter, [0, 0]]])
+    for character in vstup:
+        if character in valid_letters:
+            vystup[character][0] += 1
+
+def display_calculate():
+    current_largest = 0
+    scale = 0
+
+    for list in vystup.values():
+        if list[0] > current_largest:
+            current_largest = list[0]
+
+    scale = current_largest / 20
+
+    for key in vystup:
+        try:
+            vystup[key][1] = int(vystup[key][0] // scale)
+        except:
+            pass
     
-for letter in vstup:
-    vystup[letter][1] += 1
-    
+    # print(current_largest)
+    # print(scale)
+
+class Display:
+
+    block_1 = "░"
+    block_2 = "█"
+
+    def __init__(width: int = 20, height: int = 20, l_border: list = None, b_border: list = None, r_border: list = None, t_border: list = None):
+        self.width = width
+        self.height = height
+        self.l_border = l_border
+        self.b_border = b_border
+        self.r_border = r_border
+        self.t_border = t_border
+        self.current_line = 0
+
+    def 
 
 
+def display_draw():
+
+    # for lane in display_matrix:
+    #     print(*lane)
+
+
+count(input("input text: "))
+display_calculate()
+display_draw()
 
 print(vystup)
-
-for lane in display_matrix:
-    print(*lane)
 
 
 
