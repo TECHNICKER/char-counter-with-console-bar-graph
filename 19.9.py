@@ -1,5 +1,6 @@
 from unidecode import unidecode as udc
 
+valid_letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 control = True
 block_1 = "░"
 block_2 = "█"
@@ -22,21 +23,20 @@ while num <= 100:
     num += 5
 
 #x_label contents
-for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
+for letter in valid_letters:
     x_label.append(letter)
 x_label.insert(0, 5*space)
 
-def count(user_input: str):
-    valid_letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-
-    vstup = udc(user_input).upper()
-
-    for letter in valid_letters:
+#populate output dict
+for letter in valid_letters:
         vystup.update([[letter, [0, 0]]])
 
-    for character in vstup:
-        if character in valid_letters:
-            vystup[character][0] += 1
+def count(user_input: str):
+
+    vstup = udc(user_input).upper()
+    
+    if vstup in valid_letters:
+        vystup[vstup][0] += 1
 
 def display_calculate():
     current_largest = 0
@@ -75,10 +75,13 @@ def display_draw():
         print(value[0], end = " ")
  
 while control == True:
-    user_input = input("\n\ninsert text: ")
+    user_input = input("\n\ninsert path: ")
     if user_input == "00":
         control = False
     else:
-        count(user_input)
+        file = open(user_input, "r")
+        while znak := file.read(1):
+            count(znak)
+
         display_calculate()
         display_draw()
